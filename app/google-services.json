@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "662450167043",
+    "firebase_url": "https://denfirebaseproject.firebaseio.com",
+    "project_id": "denfirebaseproject",
+    "storage_bucket": "denfirebaseproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662450167043:android:76ffd60f29a015e3",
+        "android_client_info": {
+          "package_name": "boomband.den.com.den"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662450167043-34j6i7a0rtf96gv2fj0418eufepqivnj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "boomband.den.com.den",
+            "certificate_hash": "c36607ae9e2728bcdf1085288c3374f7dd2aa202"
+          }
+        },
+        {
+          "client_id": "662450167043-0c5oclfq9ahhutss63chb71igc5mrbje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD75c23ZKWSE_mhSCJI8KTvkN1lIAr3hfs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662450167043-0c5oclfq9ahhutss63chb71igc5mrbje.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

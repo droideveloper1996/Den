@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_name"
+        android:title="Name"/>
+    <item
+        android:id="@+id/action_ccode"
+        android:title="C-Code"/>
+    <item
+        android:id="@+id/action_vc"
+        android:title="VC Number"/>
+</menu>
