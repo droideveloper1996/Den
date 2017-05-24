@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         result = (TextView) findViewById(R.id.result);
         id2 = (EditText) findViewById(R.id.via_id);
-        status=(ImageView)findViewById(R.id.status);
-        amount=(TextView)findViewById(R.id.amount);
-        progressDialog=new ProgressDialog(this);
-        balance=(TextView)findViewById(R.id.balance);
+        status = (ImageView) findViewById(R.id.status);
+        amount = (TextView) findViewById(R.id.amount);
+        progressDialog = new ProgressDialog(this);
+        balance = (TextView) findViewById(R.id.balance);
         Button button = (Button) findViewById(R.id.getData);
         button.setOnClickListener(new OnClickListener() {
             @Override
@@ -63,44 +64,55 @@ public class MainActivity extends AppCompatActivity {
 
     public void getdata(String id) {
         if (id != null) {
-            String url = "http://192.168.0.109/AnmolCables/fetch.php?id=" + id;
+            String url = "http://codeham.com/backend/mobile/android/apps/den/fetchByVcNumber.php?vc_number=" + id;
             StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                   // Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT)
-                       //     .show();
+                    Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT)
+                            .show();
                     progressDialog.hide();
-                    JSONObject res = null;
+
                     try {
-                        res = new JSONObject(response);
-                        String master = res.optString("master_status");
-                        String lcocode = res.optString("lcocode");
-                        String vc_number = res.optString("vc_number");
-                        String stb_status = res.optString("stb_status");
-                        String ccode = res.optString("ccode");
-                        String name = res.optString("name");
-                        String monthly = res.optString("monthly");
-                        String rec_number = res.optString("rec_number");
-                        String rec_date = res.optString("rec_date");
-                        String rec_amount = res.optString("rec_amount");
-                        String rec_balance = res.optString("rec_balance");
-                        String activation_date = res.optString("activation_date");
-                        String gali_description = res.optString("gali_description");
-                        String gali_number = res.optString("gali_number");
-                        String filed_code = res.optString("filed_code");
-                        String hindi = res.optString("hindi");
-                        balance.setText("Balance  \n"+rec_balance);
-                        amount.setText("Amount  \n "+rec_amount);
-                        result.setText("NAME  :  " + name + '\n' + "STATUS  :  " + stb_status +
-                                '\n' + "V.C NUMBER  :  " + vc_number + '\n' + "REC NUMBER  :  " + rec_number + '\n' +
-                                "AMOUNT  :  " + rec_amount + '\n' + "BALANCE  :  " + rec_balance
-                        );
-                        if (stb_status.toLowerCase().equals("active")) {
-                            status.setImageResource(R.drawable.active);
+                        JSONObject res = new JSONObject(response);
+                        System.out.println(res.toString());
+                        JSONArray jsonArray = res.optJSONArray("result");
+                        if(jsonArray!=null) {
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject data = jsonArray.optJSONObject(i);
+                                String master = data.optString("master_status");
+                                String lcocode = data.optString("lcocode");
+                                String vc_number = data.optString("vc_number");
+                                String stb_status = data.optString("stb_status");
+                                String ccode = data.optString("ccode");
+                                String name = data.optString("name");
+                                String monthly = data.optString("monthly");
+                                String rec_number = data.optString("rec_number");
+                                String rec_date = data.optString("rec_date");
+                                String rec_amount = data.optString("rec_amount");
+                                String rec_balance = data.optString("rec_balance");
+                                String activation_date = data.optString("activation_date");
+                                String gali_description = data.optString("gali_description");
+                                String gali_number = data.optString("gali_number");
+                                String filed_code = data.optString("filed_code");
+                                String hindi = data.optString("hindi");
+
+
+                                balance.setText("Balance  \n" + rec_balance);
+                                amount.setText("Amount  \n " + rec_amount);
+                                result.setText("NAME  :  " + name + '\n' + "STATUS  :  " + stb_status +
+                                        '\n' + "V.C NUMBER  :  " + vc_number + '\n' + "REC NUMBER  :  " + rec_number + '\n' +
+                                        "AMOUNT  :  " + rec_amount + '\n' + "BALANCE  :  " + rec_balance
+                                );
+                                if (stb_status.toLowerCase().equals("active")) {
+                                    status.setImageResource(R.drawable.active);
+                                } else {
+                                    status.setImageResource(R.drawable.inactive);
+                                }
+                            }
                         }
                         else
                         {
-                            status.setImageResource(R.drawable.inactive);
+                            result.setText(res.optString("status")+'\n'+res.optString("message"));
                         }
 
                     } catch (JSONException e) {
